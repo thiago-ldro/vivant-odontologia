@@ -44,9 +44,9 @@ export default function App({ config, editing = false }: { config: ClinicConfig;
       {sections.experience && <Experience config={config} />}
       {sections.gallery && !!config.photos.gallery.length && <Gallery config={config} />}
       {sections.team && !config.demo && !!config.team.length && <Team config={config} />}
-      {sections.reviews && !config.demo && !!config.reviews.length && <Reviews config={config} />}
       <Booking editing={editing} config={config} selected={selected} onSelect={setSelected} openPrivacy={() => setPrivacy(true)} />
       {sections.faq && !!config.faq.length && <FAQ config={config} />}
+      {sections.reviews && !config.demo && (config.reviews.length > 0 || !!config.contact.reviewsLink) && <Reviews config={config} />}
       {sections.contact && <Contact config={config} />}
     </main>
     <Footer config={config} onPrivacy={() => setPrivacy(true)} />

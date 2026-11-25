@@ -44,7 +44,7 @@ export const clinicConfig = {
   },
   sections: {
     marquee: true, about: true, treatments: true, experience: true, gallery: true,
-    team: false, reviews: false, faq: true, contact: true,
+    team: false, reviews: true, faq: true, contact: true,
   },
   photos: {
     hero, heroMobile: folder + 'hero-mobile.webp', about: atendimento, detail: detalhe,

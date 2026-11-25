@@ -21,12 +21,27 @@ export function Team({ config }: { config: ClinicConfig }) {
 
 export function Reviews({ config }: { config: ClinicConfig }) {
   const [current, setCurrent] = useState(0)
-  const item = config.reviews[current % config.reviews.length]
-  const change = (delta: number) => setCurrent((value) => (value + config.reviews.length + delta) % config.reviews.length)
-  return <section aria-labelledby="reviews-title" className="section reviews wrap">
+  const { reviews, contact } = config
+  if (!reviews.length) {
+    return <section id="avaliacoes" className="section wrap reviews-external" aria-labelledby="reviews-title">
+      <div className="reviews-panel" data-reveal>
+        <div>
+          <p className="eyebrow">Avaliações de pacientes</p>
+          <h2 id="reviews-title">A experiência de quem já veio.</h2>
+        </div>
+        <div className="reviews-panel-action">
+          <p>Leia no Google os relatos sobre a recepção e o atendimento da equipe.</p>
+          <a href={contact.reviewsLink} className="button button-primary"><MessageCircle size={18} aria-hidden="true" /> Ver avaliações no Google</a>
+        </div>
+      </div>
+    </section>
+  }
+  const item = reviews[current % reviews.length]
+  const change = (delta: number) => setCurrent((value) => (value + reviews.length + delta) % reviews.length)
+  return <section id="avaliacoes" aria-labelledby="reviews-title" className="section reviews wrap">
     <p className="eyebrow">Avaliações</p><h2 id="reviews-title">Relatos de pacientes.</h2>
     <div aria-live="polite" key={item.name + current} className="review-slide"><p className="rating" aria-label={item.rating + ' de 5 estrelas'}>{'★'.repeat(item.rating)}</p><blockquote>{item.quote}</blockquote><p>{item.name}{item.source && <> · <a href={item.source}>Ver fonte</a></>}</p></div>
-    {config.reviews.length > 1 && <div className="gallery-controls"><button className="icon-button" aria-label="Avaliação anterior" onClick={() => change(-1)}><ChevronLeft /></button><button className="icon-button" aria-label="Próxima avaliação" onClick={() => change(1)}><ChevronRight /></button></div>}
+    {reviews.length > 1 && <div className="gallery-controls"><button className="icon-button" aria-label="Avaliação anterior" onClick={() => change(-1)}><ChevronLeft /></button><button className="icon-button" aria-label="Próxima avaliação" onClick={() => change(1)}><ChevronRight /></button></div>}
   </section>
 }
 
