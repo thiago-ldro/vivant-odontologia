@@ -12,6 +12,7 @@ const tomografia = photo('tomografia', 'Tomógrafo odontológico instalado na sa
 const planejamento = photo('planejamento', 'Tela de um consultório da Vivant exibindo imagens para planejamento odontológico')
 const detalhe = photo('detalhe', 'Poltronas e luminária sobre uma mesa de atendimento da Vivant')
 const address = 'Av. Ailton Gomes, 2375 · Pirajá'
+const officialPhone = '(88) 98889-0898'
 const maps = 'https://www.google.com/maps/search/?api=1&query=Vivant+Instituto+de+Odontologia%2C+Juazeiro+do+Norte&query_place_id=ChIJVWfqfZN5oQcRvVpXJwPazDs'
 
 export const clinicConfig = {
@@ -27,8 +28,8 @@ export const clinicConfig = {
   motion: 'full',
   demo: false,
   contact: {
-    whatsapp: '5588988890898',
-    phone: '+55 (88) 98889-0898',
+    whatsapp: '55' + officialPhone.replace(/\D/g, ''),
+    phone: '+55 ' + officialPhone,
     email: '',
     instagram: 'https://www.instagram.com/vivant.odontologia/',
     address,
@@ -134,7 +135,7 @@ export const clinicConfig = {
   team: [],
   reviews: [],
   faq: [
-    { question: 'Como agendo uma avaliação?', answer: 'Prepare sua mensagem no formulário ou ligue para (88) 98889-0898. A recepção confirma os horários disponíveis.' },
+    { question: 'Como agendo uma avaliação?', answer: 'Prepare sua mensagem no formulário ou ligue para ' + officialPhone + '. A recepção confirma os horários disponíveis.' },
     { question: 'Onde fica a Vivant?', answer: 'Na Avenida Ailton Gomes, 2375, no bairro Pirajá, em Juazeiro do Norte. A clínica tem estacionamento próprio. Você pode abrir a rota na seção de contato.' },
     { question: 'Qual é o horário de atendimento?', answer: 'De segunda a sexta, das 8h às 18h, e aos sábados, das 8h às 12h. Para feriados, consulte a recepção.' },
     { question: 'A clínica realiza exames no local?', answer: 'A Vivant conta com scanner intraoral e tomógrafo. A equipe orienta sobre os exames necessários para cada caso.' },

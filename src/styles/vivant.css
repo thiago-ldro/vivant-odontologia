@@ -117,30 +117,54 @@
 }
 
 .site[data-preset="Vivant"] .hero .button-primary {
-  position: relative;
   border-color: var(--accent);
   background: linear-gradient(110deg, var(--accent), color-mix(in srgb, var(--accent) 54%, var(--surface)));
 }
 
-.site[data-preset="Vivant"] .hero .button-primary::before {
+.site[data-preset="Vivant"] :is(.hero .button-primary, .mobile-book .button-primary, .booking-form .button-dark) {
+  position: relative;
+}
+
+.site[data-preset="Vivant"] :is(.hero .button-primary, .mobile-book .button-primary, .booking-form .button-dark)::before {
   position: absolute;
-  inset: -4px;
+  inset: -3px;
   border-radius: inherit;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--vivant-halo-color, var(--accent));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--vivant-halo-color, var(--accent)) 35%, transparent);
   opacity: 0;
   content: "";
   pointer-events: none;
 }
 
+.site[data-preset="Vivant"] .booking-form .button-dark {
+  --vivant-halo-color: var(--primary);
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .site[data-preset="Vivant"][data-motion="full"] .hero .button-primary::before {
-    animation: vivant-cta-halo 2.8s .65s ease-in-out 2;
+  [data-preset="Vivant"] .hero-photo {
+    animation: vivant-photo-in .8s cubic-bezier(.21,.74,.35,1) both;
+  }
+
+  [data-preset="Vivant"] .hero-summary.hero-in { animation-delay: .24s; }
+  [data-preset="Vivant"] .hero-actions.hero-in { animation-delay: .34s; }
+  [data-preset="Vivant"] .hero-bottom { animation: word-rise .6s .42s ease-out both; }
+
+  .site[data-preset="Vivant"][data-motion="full"] :is(.hero .button-primary, .mobile-book .button-primary)::before {
+    animation: vivant-cta-halo 2.4s .78s ease-in-out 2;
+  }
+
+  .site[data-preset="Vivant"][data-motion="full"] .booking-form .button-dark[data-ready]::before {
+    animation: vivant-cta-halo 1.8s ease-in-out 2;
   }
 }
 
+@keyframes vivant-photo-in {
+  from { opacity: .84; translate: 0 14px; scale: .985; }
+}
+
 @keyframes vivant-cta-halo {
-  0%, 100% { opacity: 0; transform: scale(.98); }
-  42% { opacity: .55; transform: scale(1.025); }
+  0%, 100% { opacity: 0; transform: scale(.995); }
+  46% { opacity: .54; transform: scale(1.025, 1.09); }
 }
 
 [data-preset="Vivant"] .marquee,

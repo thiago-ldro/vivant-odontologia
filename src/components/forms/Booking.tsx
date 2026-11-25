@@ -69,7 +69,7 @@ export function Booking({ config, selected, onSelect, openPrivacy, editing = fal
         {error('period')}
         <div className="consent"><input id="booking-consent" type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} aria-invalid={attempted && !!errors.consent} aria-describedby={error('consent') ? 'consent-error' : undefined} /><div><label htmlFor="booking-consent">Li e estou ciente do aviso de privacidade.</label> <button type="button" className="inline-link" onClick={openPrivacy}>Ler aviso</button></div></div>
         {error('consent')}
-        <button type="submit" className="button button-dark"><MessageCircle size={19} /> {demo ? 'Gerar prévia da mensagem' : 'Continuar pelo WhatsApp'}</button>
+        <button type="submit" className="button button-dark" data-ready={!demo && completed === 3 ? '' : undefined}><MessageCircle size={19} /> {demo ? 'Gerar prévia da mensagem' : 'Continuar pelo WhatsApp'}</button>
         <button type="button" className="inline-link preview-toggle" aria-expanded={preview} aria-controls="message-preview" onClick={() => setPreview(!preview)}>{preview ? 'Ocultar prévia' : 'Ver prévia da mensagem'}</button>
         <div id="message-preview" hidden={!preview}><pre className="message-preview">{message}</pre></div>
         {demo && <p className="form-note">Prévia demonstrativa. O redirecionamento está desativado.</p>}
