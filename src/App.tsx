@@ -10,12 +10,16 @@ import { Contact, FAQ, Reviews, Team } from './components/sections/Details'
 import { Metrics } from './components/sections/Metrics'
 import { Booking } from './components/forms/Booking'
 import { Dialog } from './components/ui/Dialog'
+import { ClinicalCases } from './components/sections/ClinicalCases'
+import { visibleClinicalCases } from './lib/clinic-images'
 
 export default function App({ config, editing = false }: { config: ClinicConfig; editing?: boolean }) {
   const [selected, setSelected] = useState('')
   const [privacy, setPrivacy] = useState(false)
   const root = useRef<HTMLDivElement>(null)
   const { sections } = config
+  const cases = visibleClinicalCases(config)
+  const casePhotos = cases ? [cases.cover, ...cases.gallery].filter(({ src }) => !!src) : []
 
   useEffect(() => {
     if (editing || config.motion === 'off') return
@@ -46,6 +50,7 @@ export default function App({ config, editing = false }: { config: ClinicConfig;
       {sections.team && !config.demo && !!config.team.length && <Team config={config} />}
       <Booking editing={editing} config={config} selected={selected} onSelect={setSelected} openPrivacy={() => setPrivacy(true)} />
       {sections.faq && !!config.faq.length && <FAQ config={config} />}
+      {casePhotos.length > 0 && <ClinicalCases photos={casePhotos} attribution={config.name + ' · ' + config.registration} />}
       {sections.reviews && !config.demo && (config.reviews.length > 0 || !!config.contact.reviewsLink) && <Reviews config={config} />}
       {sections.contact && <Contact config={config} />}
     </main>

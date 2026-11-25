@@ -14,12 +14,13 @@ const detalhe = photo('detalhe', 'Poltronas e luminária sobre uma mesa de atend
 const address = 'Av. Ailton Gomes, 2375 · Pirajá'
 const officialPhone = '(88) 98889-0898'
 const maps = 'https://www.google.com/maps/search/?api=1&query=Vivant+Instituto+de+Odontologia%2C+Juazeiro+do+Norte&query_place_id=ChIJVWfqfZN5oQcRvVpXJwPazDs'
+const professional = { name: 'Dr. José Dyglei da Silva', registration: 'CRO-CE 15170' }
 
 export const clinicConfig = {
-  name: 'Vivant Instituto de Odontologia',
-  brand: 'VIVANT',
-  brandLine: 'Instituto de Odontologia',
-  logo: folder + 'logotipo.webp',
+  ...professional,
+  brand: 'Dr. José Dyglei',
+  brandLine: 'Cirurgião-dentista',
+  logo: '',
   favicon: folder + 'simbolo.webp',
   slogan: 'Cuidar do seu sorriso é cuidar de você.',
   preset: 'Vivant',
@@ -57,10 +58,18 @@ export const clinicConfig = {
       { ...consultorio, title: 'Espaço de atendimento' },
     ],
   },
+  clinicalCases: {
+    author: professional,
+    cover: photo('caso-clinico-01', 'Fotografias do sorriso de um paciente antes e após a conclusão do tratamento'),
+    coverMobile: folder + 'caso-clinico-01-mobile.webp',
+    gallery: [
+      photo('caso-clinico-02', 'Registro inicial da arcada dentária e fotografia do sorriso após a conclusão do tratamento'),
+    ],
+  },
   copy: {
     heroTag: 'Pirajá · Juazeiro do Norte',
     heroEmphasis: 'é cuidar de você.',
-    heroDescription: 'Da consulta de rotina à reabilitação oral, a Vivant atende toda a família em Juazeiro do Norte.',
+    heroDescription: 'Atendimento odontológico no Instituto Vivant, no bairro Pirajá, em Juazeiro do Norte.',
     aboutTitle: 'Uma clínica para cada fase do seu sorriso.',
     aboutIntro: 'No bairro Pirajá, a Vivant reúne atendimento odontológico para toda a família, com avaliação clínica, ortodontia, estética e reabilitação oral.',
     aboutBody: 'O scanner intraoral e a tomografia na própria clínica ajudam no planejamento quando indicados. O espaço conta com estacionamento próprio e sala de repouso.',
@@ -142,12 +151,11 @@ export const clinicConfig = {
     { question: 'Preciso saber qual tratamento eu quero?', answer: 'Você pode escolher a opção de não informar o tratamento e explicar suas necessidades na avaliação.' },
   ],
   seo: {
-    title: 'Vivant Instituto de Odontologia | Juazeiro do Norte',
-    description: 'Clínica odontológica no Pirajá, em Juazeiro do Norte. Conheça a Vivant, veja os tratamentos e agende sua avaliação pelo WhatsApp.',
+    title: 'Dr. José Dyglei da Silva | Dentista em Juazeiro do Norte',
+    description: 'Dr. José Dyglei da Silva, cirurgião-dentista (CRO-CE 15170). Atendimento na Vivant, em Juazeiro do Norte, com agendamento pelo WhatsApp.',
     domain: '',
     shareImage: hero.src,
     noindex: true,
   },
   signature: { label: 'Desenvolvido por AXYRON', url: '' },
-  registration: '',
 } satisfies ClinicConfig

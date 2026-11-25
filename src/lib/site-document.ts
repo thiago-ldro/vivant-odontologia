@@ -1,6 +1,7 @@
 import type { ClinicConfig } from '../config/schema.ts'
 import { presets } from '../config/presets.ts'
 import { seoMetadata } from './seo.ts'
+import { heroMedia } from './clinic-images.ts'
 
 const escape = (value: string) => value.replace(/[&<>"']/g, (char) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]!
@@ -27,7 +28,7 @@ export function clinicHead(config: ClinicConfig) {
   if (seo.canonical) tags.push('<link rel="canonical" href="' + escape(seo.canonical) + '">', '<meta property="og:url" content="' + escape(seo.canonical) + '">')
   if (seo.shareImage) tags.push('<meta property="og:image" content="' + escape(seo.shareImage) + '">')
   if (seo.schema) tags.push('<script type="application/ld+json">' + scriptJson(seo.schema) + '</script>')
-  const { hero, heroMobile } = config.photos
+  const { hero, heroMobile } = heroMedia(config)
   if (hero.src && !hero.src.startsWith('data:')) {
     tags.push('<link rel="preload" as="image" fetchpriority="high" href="' + escape(hero.src) + '"' + (heroMobile ? ' media="(min-width: 691px)"' : '') + '>')
   }

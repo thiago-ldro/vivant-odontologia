@@ -8,7 +8,7 @@ import { presets } from '../../config/presets'
 import type { SiteFormat } from '../../lib/site-package'
 import { Field, Select, Text, Upload } from './Fields'
 import { portable, previewConfig, previewDocument } from './portable-preview'
-import { Collection, CopyEditor, MetricsEditor, PhotosEditor, ReviewsEditor, TeamEditor, TreatmentsEditor } from './Editors'
+import { Collection, CopyEditor, MetricsEditor, PhotoEditor, PhotosEditor, ReviewsEditor, TeamEditor, TreatmentsEditor } from './Editors'
 
 const devices = { Desktop: { width: 1440, icon: Monitor }, Tablet: { width: 768, icon: Tablet }, Mobile: { width: 390, icon: Smartphone } }
 
@@ -113,7 +113,7 @@ export function Studio() {
         <div className="studio-sidebar-title"><h2>Personalizar site</h2><p>{config.name}</p></div>
         <p className="studio-status" role="status">{!validated.success ? 'Revise ' + validated.error.issues[0].path.join('.') + '. ' + validated.error.issues[0].message : status || 'As alterações válidas aparecem na prévia.'}</p>
         <details open><summary>Identidade visual</summary>
-          <Text label="Nome da clínica" value={config.name} set={(value) => update('name', value)} />
+          <Text label="Nome da clínica ou profissional" value={config.name} set={(value) => update('name', value)} />
           <Text label="Nome no logotipo padrão" value={config.brand} set={(value) => update('brand', value)} />
           <Text label="Linha abaixo do logotipo" value={config.brandLine} set={(value) => update('brandLine', value)} />
           <Text label="Slogan" value={config.slogan} set={(value) => update('slogan', value)} multiline />
@@ -127,7 +127,7 @@ export function Studio() {
         <details><summary>Contato e registros</summary>
           {(Object.keys(contactLabels) as (keyof typeof contactLabels)[]).map((key) => <Text key={key} label={contactLabels[key]} value={config.contact[key] ?? ''} set={(value) => update('contact', { ...config.contact, [key]: value })} />)}
           <Text label="Horários (um por linha)" value={config.contact.hours.join('\n')} set={(value) => update('contact', { ...config.contact, hours: value ? value.split('\n') : [] })} multiline />
-          <Text label="Identificação profissional da clínica" value={config.registration} set={(value) => update('registration', value)} />
+          <Text label="Identificação profissional (CRO)" value={config.registration} set={(value) => update('registration', value)} />
         </details>
         <details><summary>Seções e demonstração</summary>
           <Field label="Modo demonstrativo"><input type="checkbox" checked={config.demo} onChange={(event) => update('demo', event.target.checked)} /></Field>
@@ -144,6 +144,16 @@ export function Studio() {
         <details><summary>Avaliações autorizadas</summary><ReviewsEditor items={config.reviews} set={(value) => update('reviews', value)} /></details>
         <details><summary>Textos institucionais</summary><CopyEditor copy={config.copy} set={(value) => update('copy', value)} /></details>
         <details><summary>Fotografias</summary><PhotosEditor photos={config.photos} set={(value) => update('photos', value)} /></details>
+        <details><summary>Casos clínicos</summary>
+          <Field label="Exibir casos clínicos no site profissional">
+            <input type="checkbox" checked={!!config.clinicalCases} onChange={({ target }) =>
+              update('clinicalCases', target.checked ? {
+                author: { name: config.name, registration: config.registration },
+                cover: { src: '', alt: '' }, coverMobile: '', gallery: [],
+              } : undefined)} />
+          </Field>
+          {config.clinicalCases && <ClinicalCasesEditor cases={config.clinicalCases} set={(value) => update('clinicalCases', value)} />}
+        </details>
         <details><summary>Perguntas frequentes</summary><Collection label="Pergunta" items={config.faq} set={(value) => update('faq', value)} create={() => ({ question: 'Nova pergunta', answer: '' })}
           render={(item, set) => <><Text label="Pergunta" value={item.question} set={(question) => set({ ...item, question })} /><Text label="Resposta" value={item.answer} set={(answer) => set({ ...item, answer })} multiline /></>} /></details>
         <details><summary>Busca e assinatura</summary>
@@ -180,6 +190,21 @@ export function Studio() {
       </section>
     </div>
   </div>
+}
+
+function ClinicalCasesEditor({ cases, set }: {
+  cases: NonNullable<ClinicConfig['clinicalCases']>
+  set: (value: NonNullable<ClinicConfig['clinicalCases']>) => void
+}) {
+  return <>
+    <p>Para exibir os casos autorizados, preencha o nome e o CRO do dentista que os realizou. Os dados devem coincidir com a identificação do site.</p>
+    <Text label="Nome do autor dos casos" value={cases.author.name} set={(name) => set({ ...cases, author: { ...cases.author, name } })} />
+    <Text label="CRO do autor dos casos" value={cases.author.registration} set={(registration) => set({ ...cases, author: { ...cases.author, registration } })} />
+    <PhotoEditor label="Comparação da capa" photo={cases.cover} set={(cover) => set({ ...cases, cover, coverMobile: cover.src === cases.cover.src ? cases.coverMobile : '' })} />
+    <Upload label="Comparação da capa para celular" value={cases.coverMobile} set={(coverMobile) => set({ ...cases, coverMobile })} />
+    <Collection label="Caso clínico" items={cases.gallery} set={(gallery) => set({ ...cases, gallery })} create={() => ({ src: '', alt: '' })}
+      render={(item, update) => <PhotoEditor label="Fotografia comparativa" photo={item} set={update} />} />
+  </>
 }
 
 export function StudioPreview() {

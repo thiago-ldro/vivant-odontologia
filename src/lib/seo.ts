@@ -13,7 +13,7 @@ export function seoMetadata(config: ClinicConfig) {
     telephone: contact.phone || (validWhatsApp(contact.whatsapp, false) ? '+' + contact.whatsapp : undefined),
     email: contact.email || undefined,
     address: contact.address ? { '@type': 'PostalAddress', streetAddress: contact.address, addressLocality: contact.city, addressRegion: contact.region, postalCode: contact.postalCode, addressCountry: contact.country } : undefined,
-    sameAs: contact.instagram ? [contact.instagram] : undefined,
+    sameAs: !config.clinicalCases && contact.instagram ? [contact.instagram] : undefined,
     hasMap: contact.maps || undefined,
   }
   return { canonical, noindex, robots, shareImage, schema }

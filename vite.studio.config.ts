@@ -9,7 +9,7 @@ const sourceFolders = ['src/components', 'src/config', 'src/styles']
 const sourceFiles = [
   'index.html', 'vite.config.ts', 'vite.prerender.config.ts', 'tsconfig.json',
   'vercel.json', 'netlify.toml', 'LICENSE', 'src/main.tsx', 'src/App.tsx', 'src/prerender.tsx',
-  'src/lib/booking.ts', 'src/lib/theme.ts', 'src/lib/seo.ts', 'src/lib/site-document.ts', 'scripts/prerender.mjs',
+  'src/lib/booking.ts', 'src/lib/theme.ts', 'src/lib/seo.ts', 'src/lib/site-document.ts', 'src/lib/clinic-images.ts', 'scripts/prerender.mjs',
 ]
 
 function sourceArchive() {

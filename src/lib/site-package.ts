@@ -1,6 +1,6 @@
 import { strToU8, zip } from 'fflate'
 import type { ClinicConfig } from '../config/schema'
-import { mapClinicImages } from './clinic-images'
+import { mapClinicImages, visibleClinicalCases } from './clinic-images'
 import { clinicHead, clinicRobots, scriptJson } from './site-document'
 
 export interface SiteKit {
@@ -45,7 +45,7 @@ export async function packageSite(config: ClinicConfig, kit: SiteKit, format: Si
 
   const used = new Map<string, string>()
   let uploadCount = 0
-  const published = mapClinicImages(config, (url) => {
+  const published = mapClinicImages({ ...config, clinicalCases: visibleClinicalCases(config) }, (url) => {
     if (!url || url.startsWith('https://')) return url
     const existing = used.get(url)
     if (existing) return existing

@@ -36,6 +36,12 @@ export const clinicSchema = z.object({
   }),
   sections: z.object({ marquee: z.boolean(), about: z.boolean(), treatments: z.boolean(), experience: z.boolean(), gallery: z.boolean(), team: z.boolean(), reviews: z.boolean(), faq: z.boolean(), contact: z.boolean() }),
   photos: z.object({ hero: photo, heroMobile: image, about: photo, detail: photo, gallery: z.array(galleryPhoto), credit: text, galleryCredit: text.optional() }),
+  clinicalCases: z.object({
+    author: z.object({ name: text, registration: text }),
+    cover: photo,
+    coverMobile: image,
+    gallery: z.array(photo),
+  }).optional(),
   copy: z.object({
     heroTag: text, heroEmphasis: text, heroDescription: text, aboutTitle: text, aboutIntro: text, aboutBody: text, treatmentTitle: text, treatmentIntro: text,
     experienceTitle: text, experienceIntro: text, galleryTitle: text, galleryIntro: text, bookingTitle: text, bookingIntro: text, privacy: text,

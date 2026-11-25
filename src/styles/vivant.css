@@ -60,6 +60,14 @@
 
 [data-preset="Vivant"] .hero-photo img { object-position: 53% 56%; }
 
+[data-preset="Vivant"] .hero[data-clinical-cover] :is(.hero-photo, .hero-shade) { bottom: 95px; }
+[data-preset="Vivant"] .hero[data-clinical-cover] .hero-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 49%) minmax(0, 1fr);
+  bottom: 31px;
+}
+[data-preset="Vivant"] .hero[data-clinical-cover] .scroll-indicator { justify-self: start; }
+
 [data-preset="Vivant"] .hero-shade {
   background: linear-gradient(0deg, color-mix(in srgb, var(--dark) 20%, transparent), transparent 46%);
   pointer-events: none;
@@ -261,6 +269,15 @@
 
   [data-preset="Vivant"] .hero-shade,
   [data-preset="Vivant"] .hero-bottom { display: none; }
+
+  [data-preset="Vivant"] .hero[data-clinical-cover] .hero-photo { bottom: auto; aspect-ratio: 1; }
+  [data-preset="Vivant"] .hero[data-clinical-cover] .hero-bottom {
+    position: static;
+    display: block;
+    grid-row: 3;
+    margin-top: .7rem;
+  }
+  [data-preset="Vivant"] .hero[data-clinical-cover] .scroll-indicator { display: none; }
 
   .site[data-preset="Vivant"] .treatment-copy {
     padding: .78rem;

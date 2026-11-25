@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import { mkdir } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { clinicConfig } from '../src/config/clinic.config'
+import { heroMedia } from '../src/lib/clinic-images'
 
 test('página pública, metadados, recursos locais, links e console', async ({ page, request }) => {
   const errors: string[] = []
@@ -13,7 +14,7 @@ test('página pública, metadados, recursos locais, links e console', async ({ p
   await expect(page.locator('.site')).toHaveAttribute('data-preset', clinicConfig.preset)
   await expect(page.getByRole('heading', { name: 'O cuidado em números.' })).toHaveCount(0)
   await expect(page.locator('meta[name=theme-color]')).toHaveAttribute('content', '#241A15')
-  for (const path of ['/', '/robots.txt', '/sitemap.xml', clinicConfig.favicon, clinicConfig.photos.heroMobile, ...await page.locator('img').evaluateAll((images) => [...new Set(images.map((image) => new URL(image.getAttribute('src')!, location.origin).pathname))])]) {
+  for (const path of ['/', '/robots.txt', '/sitemap.xml', clinicConfig.favicon, heroMedia(clinicConfig).heroMobile, ...await page.locator('img').evaluateAll((images) => [...new Set(images.map((image) => new URL(image.getAttribute('src')!, location.origin).pathname))])]) {
     expect((await request.get(path)).ok(), path).toBeTruthy()
   }
   for (const id of await page.locator('a[href^="#"]').evaluateAll((links) => [...new Set(links.map((link) => link.getAttribute('href')!.slice(1)))])) {
@@ -31,7 +32,10 @@ test('página pública, metadados, recursos locais, links e console', async ({ p
   expect(structured.name).toBe(clinicConfig.name)
   const reviews = page.getByRole('region', { name: 'A experiência de quem já veio.' })
   await expect(reviews.getByRole('link', { name: 'Ver avaliações no Google' })).toHaveAttribute('href', clinicConfig.contact.reviewsLink)
-  await expect(page.locator('#perguntas + #avaliacoes + #contato')).toHaveCount(1)
+  await expect(page.locator('#perguntas + #casos-clinicos + #avaliacoes + #contato')).toHaveCount(1)
+  await expect(page.locator('#hero-case-credit')).toContainText('Dr. José Dyglei da Silva · CRO-CE 15170')
+  await expect(page.getByRole('link', { name: 'Ver casos clínicos' })).toHaveAttribute('href', '#casos-clinicos')
+  await expect(page.locator('#casos-clinicos figcaption')).toHaveText(Array(2).fill('Dr. José Dyglei da Silva · CRO-CE 15170'))
   await expect(page.locator('#contato').getByRole('link', { name: 'Ver avaliações no Google' })).toHaveAttribute('href', clinicConfig.contact.reviewsLink)
   await expect(page.locator('iframe')).toHaveCount(0)
   await page.route('https://www.google.com/maps?**', (route) => route.fulfill({ contentType: 'text/html', body: '<p>Mapa de teste</p>' }))
@@ -171,7 +175,8 @@ test('todos os tratamentos abrem o painel e os CTAs principais chegam ao destino
 test('captura desktop e mobile da build pública', async ({ page }, info) => {
   await mkdir('artifacts', { recursive: true })
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  for (const [device, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 844]] as const) {
+  const { hero, heroMobile } = heroMedia(clinicConfig)
+  for (const [device, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 970]] as const) {
     await page.setViewportSize({ width, height })
     await page.goto('/')
     await page.evaluate(async () => {
@@ -180,7 +185,9 @@ test('captura desktop e mobile da build pública', async ({ page }, info) => {
       await document.fonts.ready
     })
     const heroSource = await page.locator('.hero-photo img').evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)
-    expect(heroSource).toBe(device === 'mobile' ? clinicConfig.photos.heroMobile : clinicConfig.photos.hero.src)
+    expect(heroSource).toBe(device === 'mobile' ? heroMobile : hero.src)
+    await expect(page.locator('.hero-photo img')).toHaveCSS('object-fit', 'contain')
+    await expect(page.locator('#hero-case-credit')).toBeVisible()
     await page.screenshot({ path: 'artifacts/' + device + '.png', fullPage: true, animations: 'disabled' })
     await page.screenshot({ path: 'artifacts/' + device + '-entrada.png', animations: 'disabled' })
     await info.attach(device, { path: 'artifacts/' + device + '.png' })

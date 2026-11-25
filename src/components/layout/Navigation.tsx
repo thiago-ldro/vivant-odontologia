@@ -15,10 +15,11 @@ export function navigation(c: ClinicConfig) {
 }
 
 export function Brand({ config }: { config: ClinicConfig }) {
-  return <a href="#inicio" className="brand" aria-label={config.name + ' – Início'}>
+  const professional = !!config.clinicalCases
+  return <a href="#inicio" className={professional ? 'brand brand-professional' : 'brand'} aria-label={config.name + ' – Início'}>
     {config.logo ? <img src={config.logo} alt="" width={52} height={52} /> : <>
-      <svg viewBox="0 0 42 39" aria-hidden="true"><path d="M2 34 21 3l19 31H2Zm8 0 11-18 11 18M21 3v13" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinejoin="round" /></svg>
-      <span><strong>{config.brand}</strong><small>{config.brandLine}</small></span>
+      {!professional && <svg viewBox="0 0 42 39" aria-hidden="true"><path d="M2 34 21 3l19 31H2Zm8 0 11-18 11 18M21 3v13" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinejoin="round" /></svg>}
+      <span><strong>{config.brand}</strong><small>{config.brandLine}{professional && config.registration ? ' · ' + config.registration : ''}</small></span>
     </>}
   </a>
 }

@@ -6,6 +6,7 @@ import { presets } from '../src/config/presets.ts'
 import { bookingMessage, whatsAppUrl } from '../src/lib/booking.ts'
 import { themeVariables } from '../src/lib/theme.ts'
 import { seoMetadata } from '../src/lib/seo.ts'
+import { heroMedia, visibleClinicalCases } from '../src/lib/clinic-images.ts'
 
 test('gera a mensagem completa e preserva acentos e símbolos após a codificação', () => {
   const message = bookingMessage(' Ana  Guimarães & Luz ', 'Ortodontia', 'Manhã')
@@ -47,6 +48,10 @@ test('valida JSON exportado, referências, IDs duplicados e URLs inválidas', ()
   assert.equal(clinicSchema.safeParse({ ...roundTrip, contact: { ...roundTrip.contact, maps: 'javascript:alert(1)' } }).success, false)
   assert.equal(clinicSchema.safeParse({ ...roundTrip, contact: { ...roundTrip.contact, embed: 'https://google.com.example.org/maps?output=embed&q=x' } }).success, false)
   assert.equal(clinicSchema.safeParse({ ...roundTrip, photos: { ...roundTrip.photos, heroMobile: '//example.com/a.png' } }).success, false)
+  assert.equal(heroMedia(roundTrip).hero.src, clinicConfig.clinicalCases.cover.src)
+  assert.equal(heroMedia({ ...roundTrip, demo: true }).hero.src, clinicConfig.photos.hero.src)
+  assert.equal(visibleClinicalCases({ ...roundTrip, registration: '' }), undefined)
+  assert.equal(visibleClinicalCases({ ...roundTrip, name: 'Outro profissional' }), undefined)
 })
 
 test('demonstração fica sem Dentist e noindex continua ativo; produção usa dados configurados', () => {

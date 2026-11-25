@@ -64,6 +64,7 @@ test('ZIP estático publica os dados e a imagem enviados, com navegação e What
   expect(strFromU8(files['netlify.toml'])).toContain('publish = "."')
   expect(strFromU8(files['index.html'])).toContain('Clínica Áurea &lt;/script&gt;')
   expect(files['images/enviadas/imagem-1.png']).toEqual(new Uint8Array(Buffer.from(image, 'base64')))
+  expect(Object.keys(files).filter((name) => name.includes('caso-clinico-'))).toEqual([])
 
   const host = await serveZip(files)
   try {
@@ -95,6 +96,7 @@ test('ZIP de código para Lovable contém o site editável e gera uma build', as
   await page.getByText('Configuração', { exact: true }).click()
   const { files } = await download(page, 'Código para Lovable (.zip)')
   expect(Object.keys(files)).not.toContain('src/studio.tsx')
+  expect(files['public' + clinicConfig.clinicalCases.cover.src]).toBeDefined()
   expect(strFromU8(files['src/config/clinic.config.ts'])).toContain('Site exportado como código.')
   const directory = await mkdtemp(join(tmpdir(), 'axyron-source-'))
   try {

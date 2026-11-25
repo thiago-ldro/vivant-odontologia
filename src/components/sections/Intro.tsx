@@ -1,19 +1,21 @@
 import { CalendarDays, ChevronDown, Pause, Play, Sparkle } from 'lucide-react'
 import { useState } from 'react'
 import type { ClinicConfig, Photo } from '../../config/schema'
+import { heroMedia } from '../../lib/clinic-images'
 
 export function Image({ photo, className = '' }: { photo: Photo; className?: string }) {
   return photo.src ? <img className={className} src={photo.src} alt={photo.alt} loading="lazy" decoding="async" /> : <div className={'image-placeholder ' + className} role="img" aria-label={photo.alt || 'Imagem indisponível'} />
 }
 
 export function Hero({ config }: { config: ClinicConfig }) {
+  const { hero, heroMobile, isClinical } = heroMedia(config)
   const words = config.slogan.split(' ')
   const firstLine = config.copy.heroEmphasis && config.slogan.endsWith(config.copy.heroEmphasis) ? config.slogan.slice(0, -config.copy.heroEmphasis.length).trim() : ''
   const firstWords = firstLine ? firstLine.split(' ') : words
-  return <section className="hero" id="inicio">
-    {config.photos.hero.src && <picture className="hero-photo">
-      {config.photos.heroMobile && <source media="(max-width: 690px)" srcSet={config.photos.heroMobile} />}
-      <img src={config.photos.hero.src} alt={config.photos.hero.alt} fetchPriority="high" />
+  return <section className="hero" id="inicio" data-clinical-cover={isClinical ? '' : undefined}>
+    {hero.src && <picture className="hero-photo">
+      {heroMobile && <source media="(max-width: 690px)" srcSet={heroMobile} />}
+      <img src={hero.src} alt={hero.alt} aria-describedby={isClinical ? 'hero-case-credit' : undefined} fetchPriority="high" />
     </picture>}
     <div className="hero-shade" />
     <div className="hero-inner wrap">
@@ -30,7 +32,10 @@ export function Hero({ config }: { config: ClinicConfig }) {
     </div>
     <div className="wrap hero-bottom">
       <a href={config.sections.about ? '#sobre' : '#agendamento'} className="scroll-indicator"><span><ChevronDown size={17} /></span> Explore a clínica</a>
-      {config.photos.credit && <small>{config.photos.credit}</small>}
+      {isClinical ? <div className="hero-case-credit" id="hero-case-credit">
+        <p><strong>Antes e depois</strong><br />{config.name} · {config.registration}</p>
+        <a href="#casos-clinicos">Ver casos clínicos</a>
+      </div> : config.photos.credit && <small>{config.photos.credit}</small>}
     </div>
   </section>
 }

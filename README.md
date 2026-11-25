@@ -1,6 +1,6 @@
-# Vivant Instituto de Odontologia
+# Dr. José Dyglei da Silva
 
-Site institucional da Vivant em Juazeiro do Norte, criado sobre o AXYRON Dental. O site usa o dourado do logotipo, tons de madeira e fotografias da própria clínica. A build é estática, com HTML pré-renderizado.
+Site profissional de José Dyglei da Silva (CRO-CE 15170), com atendimento na Vivant em Juazeiro do Norte. O site usa tons dourados e fotografias da clínica. A build é estática, com HTML pré-renderizado.
 
 ## Executar
 
@@ -19,7 +19,7 @@ O comando `dev` abre o site. O comando `studio` abre o editor em `/studio.html` 
 - Consulte a [página atual da Vivant](https://vivant-odontologia-juazeiro-do-norte.localo.site/) e a [página de contato](https://vivant-odontologia-juazeiro-do-norte.localo.site/contact/) para telefone, horário, endereço, tratamentos e estrutura. O número também consta como WhatsApp no [cadastro empresarial](https://www.econodata.com.br/consulta-empresa/49976267000108-vivant-instituto-de-odontologia-ltda).
 - O logotipo é o avatar da [página atual](https://vivant-odontologia-juazeiro-do-norte.localo.site/). As imagens vêm da [galeria fornecida](https://vivant-odontologia-juazeiro-do-norte.localo.site/photos) e da [publicação sobre clareamento](https://vivant-odontologia-juazeiro-do-norte.localo.site/blog/2661461120532459695-clareamento-dental-na-vivant-e-feito). As cópias WebP estão em `public/images/vivant/`. A licença MIT do código não se estende à marca ou às imagens da clínica. O mapa e o link de avaliações usam o identificador do estabelecimento contido na página de referência.
 - O CEP segue o site da clínica. O cadastro empresarial apresenta outro CEP para a mesma rua e número. Confirme o CEP com a recepção antes da publicação.
-- Os dados da equipe e do responsável técnico devem ser revisados com a clínica para preencher a identificação profissional. A seção Avaliações leva à ficha da clínica no Google. O [CFO](https://website.cfo.org.br/etica-para-cirurgioes-dentistas-recem-formados-principais-pontos-de-atencao/) atribui a divulgação de imagens de resultados ao dentista que realizou o tratamento, com autorização formal e identificação profissional.
+- A seção Avaliações leva à ficha da clínica no Google. Os dois casos clínicos foram indicados pelo solicitante, que informou ter a autorização de uso. A capa e a galeria exibem o nome e o CRO informados para o autor dos tratamentos. O [CFO](https://website.cfo.org.br/etica-para-cirurgioes-dentistas-recem-formados-principais-pontos-de-atencao/) atribui a divulgação de imagens de resultados ao dentista que realizou o tratamento, com autorização formal e identificação profissional.
 - Edite dados e textos em `src/config/clinic.config.ts`, cores em `src/config/presets.ts` e o acabamento do tema em `src/styles/vivant.css`. Substitua fotos e textos alternativos juntos.
 
 ## Validar e gerar a entrega

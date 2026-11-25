@@ -35,7 +35,7 @@ export function enhance(root: HTMLElement, mode: 'full' | 'light') {
       lenis.on('scroll', ScrollTrigger.update)
       gsap.ticker.add(frame)
       const hero = root.querySelector('.hero')
-      const portrait = root.querySelector('.hero-photo img')
+      const portrait = root.querySelector('.hero:not([data-clinical-cover]) .hero-photo img')
       if (hero && portrait) {
         gsap.fromTo(portrait, { yPercent: 0, scale: 1 }, {
           yPercent: 4, scale: 1.085, ease: 'none',
