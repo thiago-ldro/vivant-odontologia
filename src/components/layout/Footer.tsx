@@ -8,7 +8,7 @@ export function Footer({ config, onPrivacy }: { config: ClinicConfig; onPrivacy:
     <footer className="footer">
       <div className="wrap">
         <div className="footer-grid">
-          <div><Brand config={config} /><p>{config.demo ? 'Website demonstrativo da AXYRON.' : config.copy.heroTag}</p></div>
+          <div><Brand config={config} showLogo={!config.clinicalCases} /><p>{config.demo ? 'Website demonstrativo da AXYRON.' : config.copy.heroTag}</p></div>
           <nav aria-label="Navegação do rodapé">{navigation(config).map(([id, label]) => <a key={id} href={'#' + id}>{label}</a>)}</nav>
           <div className="footer-info">{c.hours.map((item, index) => <p key={index}>{item}</p>)}{c.address && <p>{c.address}</p>}{c.instagram && <a href={c.instagram}>Instagram</a>}{config.registration && <p>{config.registration}</p>}<button className="inline-link" onClick={onPrivacy}>Aviso de privacidade</button></div>
         </div>

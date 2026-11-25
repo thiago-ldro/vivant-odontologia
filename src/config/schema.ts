@@ -24,6 +24,7 @@ const mapsEmbed = https.refine((value) => {
 
 export const clinicSchema = z.object({
   name: text.min(1), brand: text.min(1), brandLine: text, slogan: text.min(1), logo: image, favicon: image,
+  logoLabel: text.optional(),
   demo: z.boolean(), preset: z.enum(Object.keys(presets) as [keyof typeof presets, ...(keyof typeof presets)[]]),
   colors: z.object({ primary: hex, signal: hex, dark: hex, surface: hex, paper: hex, accent: hex, ink: hex }).partial(),
   fonts: z.object({ heading: z.enum(['Newsreader', 'Georgia', 'Manrope']), body: z.enum(['Manrope', 'System', 'Georgia']) }),

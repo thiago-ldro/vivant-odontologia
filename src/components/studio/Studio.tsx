@@ -118,6 +118,7 @@ export function Studio() {
           <Text label="Linha abaixo do logotipo" value={config.brandLine} set={(value) => update('brandLine', value)} />
           <Text label="Slogan" value={config.slogan} set={(value) => update('slogan', value)} multiline />
           <Upload label="Logotipo" value={config.logo} set={(value) => update('logo', value)} />
+          <Text label="Nome acessível do logotipo" value={config.logoLabel ?? ''} set={(value) => update('logoLabel', value)} />
           <Upload label="Favicon" value={config.favicon} set={(value) => update('favicon', value)} />
           <Select label="Preset" value={config.preset} options={Object.keys(presets)} set={(value) => setConfig((previous) => ({ ...previous, preset: value as ClinicConfig['preset'], colors: {} }))} />
           <div className="studio-colors">{Object.entries({ ...presets[config.preset], ...config.colors }).map(([key, value]) => <Text key={key} label={{ primary:'Primária', signal:'Luz e reflexos', dark:'Fundo escuro', surface:'Superfície', paper:'Fundo claro', accent:'Destaque', ink:'Texto' }[key] ?? key} type="color" value={value} set={(color) => update('colors', { ...config.colors, [key]: color })} />)}</div>
