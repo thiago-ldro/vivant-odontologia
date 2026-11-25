@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-studio/
+artifacts/
+playwright-report/
+test-results/
+.env*
+*.log
+.vercel/
+.netlify/
+dist-export-kit/

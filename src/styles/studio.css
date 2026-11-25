@@ -1,0 +1,233 @@
+.studio-shell {
+  --studio-ink: #142438;
+  --studio-soft: #4d6074;
+  --studio-line: #d6e0eb;
+  --studio-tint: #edf4fd;
+  font: 500 14px/1.5 "Manrope Variable", system-ui, sans-serif;
+  background: #ecf1f7;
+  color: var(--studio-ink);
+  min-height: 100dvh;
+}
+
+.studio-header,
+.studio-brand,
+.studio-actions,
+.studio-preview-bar,
+.device-picker {
+  display: flex;
+  align-items: center;
+}
+
+.studio-header {
+  position: relative;
+  z-index: 1;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 72px;
+  padding: 12px clamp(14px, 3vw, 40px);
+  background: #0b192e;
+  color: #f8fbff;
+}
+
+.studio-brand { gap: 12px; }
+
+.studio-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #182e4c;
+  border: 1px solid #4675a7;
+  color: #b9d8ff;
+}
+
+.studio-header h1 {
+  font-size: clamp(1.16rem, 2vw, 1.35rem);
+  letter-spacing: .115em;
+  font-weight: 760;
+  margin: 0;
+}
+
+.studio-header h1 em {
+  font: italic 400 1.55em/1 "Newsreader Variable", Georgia, serif;
+  letter-spacing: -.04em;
+  color: #c9dffb;
+}
+
+.studio-actions { gap: 8px; }
+.studio-file-menu { position: relative; }
+
+.studio-header :is(button, summary),
+.studio-file-panel label,
+.studio-editor button,
+.device-picker button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .42rem;
+  border: 1px solid var(--studio-line);
+  border-radius: 10px;
+  padding: 9px 13px;
+  min-height: 40px;
+  cursor: pointer;
+  font-weight: 750;
+  transition: background .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.studio-header summary {
+  list-style: none;
+  border-color: #4b6888;
+}
+
+.studio-header summary::-webkit-details-marker { display: none; }
+.studio-header summary:hover { background: #17304f; }
+
+.studio-header .studio-export {
+  background: #c8e1ff;
+  color: #0b2749;
+  border-color: #d6ebff;
+}
+
+.studio-header .studio-export:hover { background: #e1eeff; }
+.studio-shell button:disabled { opacity: .52; cursor: default; }
+.studio-file-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 7px);
+  min-width: 190px;
+  display: grid;
+  gap: 3px;
+  padding: 6px;
+  border: 1px solid var(--studio-line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--studio-ink);
+  box-shadow: 0 12px 32px #11233a24;
+}
+
+.studio-file-panel :is(button, label) {
+  justify-content: flex-start;
+  border-color: transparent;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.studio-file-panel :is(button, label):hover { background: var(--studio-tint); }
+.studio-file-panel input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+.studio-body {
+  --workspace-height: calc(100dvh - 72px);
+  display: grid;
+  grid-template-columns: minmax(285px, 345px) minmax(0, 1fr);
+  min-height: var(--workspace-height);
+}
+
+.studio-editor {
+  padding: clamp(14px, 2vw, 24px);
+  background: #f8fafd;
+  border-right: 1px solid var(--studio-line);
+  max-height: var(--workspace-height);
+  overflow: auto;
+}
+
+.studio-sidebar-title h2, .studio-preview-bar h2 { margin: 0; font-size: 1.12rem; font-weight: 820; }
+.studio-sidebar-title p { margin: 3px 0 0; color: var(--studio-soft); overflow-wrap: anywhere; }
+
+.studio-status {
+  margin: 15px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #b7d0ed;
+  background: var(--studio-tint);
+  color: #24486e;
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+}
+
+.studio-editor > details {
+  padding: 0 12px;
+  margin-bottom: 7px;
+  border: 1px solid var(--studio-line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.studio-editor > details[open] { padding-bottom: 12px; border-color: #a9c4e4; }
+.studio-editor summary { cursor: pointer; font-weight: 800; padding: 11px 0; }
+.studio-editor details > p { margin: 2px 0 10px; color: var(--studio-soft); }
+.studio-field { display: grid; gap: 5px; margin: 9px 0; font-size: .81rem; font-weight: 650; overflow-wrap: anywhere; }
+.studio-field:has(input[type=checkbox]) { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.studio-field input[type=checkbox] { accent-color: #214e85; width: 16px; height: 16px; }
+
+.studio-field :is(input:not([type=checkbox]), textarea, select) {
+  width: 100%;
+  min-width: 0;
+  background: #f9fbfd;
+  border: 1px solid #a9bbcf;
+  border-radius: 9px;
+  padding: 8px;
+  font-weight: 550;
+}
+
+.studio-field input[type=color] { min-height: 35px; padding: 2px; }
+.studio-colors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.studio-record { border: 1px solid var(--studio-line); border-radius: 9px; margin: 8px 0; padding: 2px 9px; }
+.studio-record[open] { padding-bottom: 9px; }
+.studio-editor button { background: var(--studio-tint); color: #24486e; font-size: .82rem; }
+.studio-editor button:hover { border-color: #7193be; }
+
+.studio-preview { display: flex; flex-direction: column; min-width: 0; max-height: var(--workspace-height); }
+.studio-preview-bar {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 64px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--studio-line);
+  background: #f8fafd;
+}
+
+.device-picker { gap: 3px; padding: 3px; border-radius: 12px; background: #e9eff7; }
+.device-picker button { min-height: 34px; padding: 6px 9px; border-color: transparent; color: #45617f; font-size: .79rem; }
+.device-picker button[aria-pressed=true] {
+  background: #fff;
+  border-color: #c4d4e7;
+  color: #13345d;
+  box-shadow: 0 1px 3px #11233a1a;
+}
+.device-picker button:hover { background: #fff; }
+
+.studio-stage {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 16px 0 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(ellipse at 60% 0%, #f6f9fd, #e5ecf6 75%);
+}
+.studio-frame-shell {
+  position: relative;
+  overflow: hidden;
+  flex: none;
+  border-radius: 15px;
+  outline: 1px solid #c2d1e2;
+  background: #fff;
+  box-shadow: 0 12px 42px #142d4d20;
+}
+.studio-frame-shell iframe { transform-origin: top left; border: 0; max-width: none; display: block; }
+.studio-shell :focus-visible, .studio-file-panel label:focus-within { outline: 2px solid #3263a1; outline-offset: 3px; }
+.studio-header :focus-visible { outline-color: #8cc0ff; }
+
+@media (max-width: 740px) {
+  .studio-body { grid-template-columns: 1fr; }
+  .studio-editor { max-height: 50dvh; border-right: 0; border-bottom: 1px solid var(--studio-line); }
+  .studio-preview { max-height: none; }
+  .studio-stage { flex: initial; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-shell * { transition: none !important; }
+}

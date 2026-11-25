@@ -1,0 +1,53 @@
+.clinic-metrics {
+  padding-block: clamp(3.75rem, 7vw, 6rem);
+  background: var(--dark);
+  color: white;
+}
+
+.metrics-inner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.6rem);
+}
+
+.site .metrics-inner h2 {
+  font-size: clamp(2.35rem, 4.5vw, 4.35rem);
+}
+
+.metrics-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: clamp(.7rem, 2vw, 1.35rem);
+}
+
+.metric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.1rem, 3vw, 2.1rem);
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
+}
+
+.metric dt {
+  font-size: .95rem;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.metric-number {
+  order: -1;
+  margin: 0 0 .55rem;
+  font: 400 clamp(2.5rem, 6vw, 5rem)/.95 var(--heading);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -.045em;
+  color: var(--accent);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.metric-note {
+  margin: .2rem 0 0;
+  color: color-mix(in srgb, white 85%, var(--accent));
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
